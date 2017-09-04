@@ -37,4 +37,5 @@ p<-ggplot(pubs) +
   theme(axis.text.x = element_text(angle = 45 ,hjust = TRUE))
 p
 
-save_plot(filename = "paperrec.pdf",p,base_height = 5,base_width = 15)
+# save_plot(filename = "paperrec.pdf",p,base_height = 5,base_width = 15)
+save_plot(filename = "paperrec.jpg",p,base_height = 5,base_width = 15)
