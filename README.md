@@ -2,7 +2,7 @@
 
 ### Record of paper submissions, revisions, rejections, acceptances.
 
-This repo exists to show the crude reality of the (?)scientific publication process.
+The aim of this repo is to bring transparency to the scientific publication process.
 
 ![alt text](https://github.com/MoisesExpositoAlonso/paperrec/blob/master/paperrec.jpg)
 
