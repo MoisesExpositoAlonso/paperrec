@@ -35,20 +35,7 @@ translatoraction<-function(x){
 }
 
 
-pubs=read.table("publications_day_record.tsv",header=TRUE,fill=TRUE) %>%
-  mutate(time=as.Date(time),
-         action.num=translatoraction(action)) %>%
-  mutate(
-          publicationdate= publicationdate[paper,2],
-          startdate= startdate[paper,2]
-         ) %>%
-  mutate(
-          timescaled= time-startdate,
-          timescaledend=publicationdate-startdate
-          )
-pubs
-
-
+pubs=read.table("publications_day_record.tsv",header=TRUE,fill=TRUE)
 accepteddate=group_by(pubs, paper)%>%
                    summarise(
                              isaccepted=any(action =="accepted"),
@@ -63,6 +50,19 @@ publicationdate=(group_by(pubs, paper)%>%summarise(lasttime=tail(time,1)) ) %>% 
   
 startdate=(group_by(pubs, paper)%>%summarise(lasttime=head(time,1)) ) %>% data.frame()
   rownames(startdate)=startdate$paper
+
+pubs%>%
+  mutate(time=as.Date(time),
+         action.num=translatoraction(action)) %>%
+  mutate(
+          publicationdate= as.Date(publicationdate[paper,2]),
+          startdate= as.Date(startdate[paper,2])
+         ) %>%
+  mutate(
+          timescaled= time-startdate,
+          timescaledend=publicationdate-startdate
+          ) ->
+pubs
 
   
 
@@ -97,8 +97,9 @@ p<-ggplot(pubs) +
         panel.grid.minor = element_blank(),
         strip.background = element_blank(),
         panel.border = element_rect(colour = "black"))
+p
 
-save_plot(filename = "paperrec_separated.jpg",p,base_height = 1*length(unique(pubs$paper)),base_width = 8)
+save_plot(filename = "paperrec.jpg",p,base_height = 1*length(unique(pubs$paper)),base_width = 10)
 
   
 
